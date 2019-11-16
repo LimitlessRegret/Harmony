@@ -204,7 +204,7 @@ namespace HarmonyLib
 						PatchFunctions.AddFinalizer(patchInfo, instance.Id, finalizer);
 						dynamicMethods.Add(PatchFunctions.UpdateWrapper(original, patchInfo, instance.Id));
 
-						HarmonySharedState.UpdatePatchInfo(original, patchInfo);
+						// HarmonySharedState.UpdatePatchInfo(original, patchInfo);
 
 						RunMethod<HarmonyCleanup>(original);
 					}
