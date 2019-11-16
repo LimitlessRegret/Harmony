@@ -14,3 +14,9 @@ jobs:
           dotnet-version: 3.0.100
       - name: Build with dotnet
         run: dotnet build --configuration Release --framework netcoreapp3.0
+      - name: Pack nupkg
+        run: dotnet pack -p:TargetFrameworks=netcoreapp3.0 --configuration Release
+      - name: nuget push
+        run: bash -c 'find Harmony/bin/*/*.nupkg -print0 | xargs -0I % curl -vX PUT -u "${GITHUB_REPOSITORY%/*}:$GITHUB_TOKEN" -F package=@% https://nuget.pkg.github.com/${GITHUB_REPOSITORY%/*}/'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
